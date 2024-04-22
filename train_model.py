@@ -57,7 +57,7 @@ for word, index in tokenizer.word_index.items():
 
 # Define LSTM model
 model = Sequential()
-model.add(Embedding(vocab_size, 300, input_length=max_seq_length-1))
+model.add(Embedding(vocab_size, 300, weights = [embedding_matrix],input_length=max_seq_length-1))
 model.add(LSTM(100))
 model.add(Dense(vocab_size, activation='softmax'))
 
@@ -65,11 +65,8 @@ model.add(Dense(vocab_size, activation='softmax'))
 # Compile model
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 # Train model
-model.fit(X, y, epochs=10, verbose=1)
+model.fit(X, y, epochs=1, verbose=1)
 model.save('model.h5')
-
-
-# from keras.models import load_model
-# model = load_model('model.h5')
-
+    
+ 
 
